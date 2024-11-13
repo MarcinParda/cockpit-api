@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from './app.module';
 import { bootstrap } from './main';
 import { ConfigService } from '@nestjs/config';
-import { SwaggerService } from './swagger/swagger.service';
+import { SwaggerService } from './modules/swagger/swagger.service';
 
 describe('Bootstrap', () => {
   let app;

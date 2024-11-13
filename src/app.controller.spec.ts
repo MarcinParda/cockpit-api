@@ -3,7 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ApiKeyGuard } from './api-key/api-key.guard';
+import { ApiKeyGuard } from './modules/api-key/api-key.guard';
 
 describe('AppController', () => {
   let app: INestApplication;
