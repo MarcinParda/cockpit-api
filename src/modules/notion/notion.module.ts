@@ -8,7 +8,7 @@ import { Client, LogLevel } from '@notionhq/client';
       provide: 'NOTION',
       useFactory: () => {
         const logLevel = process.env.CI ? LogLevel.INFO : LogLevel.DEBUG;
-        return new Client({ auth: process.env.NOTION_API_KEY, logLevel });
+        return new Client({ auth: process.env.NOTION_API_TOKEN, logLevel });
       },
     },
   ],
