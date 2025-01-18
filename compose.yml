@@ -1,0 +1,10 @@
+services:
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+    ports:
+      - '127.0.0.1:8000:3000'
