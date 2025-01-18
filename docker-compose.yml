@@ -1,5 +1,3 @@
-version: '3.5'
-
 services:
   db:
     image: postgres
@@ -19,12 +17,17 @@ services:
     container_name: nest-docker-postgres
     environment:
       - NODE_ENV=production
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_NAME=postgres
     ports:
-      - '8000:80'
+      - '8000:3000'
     depends_on:
       - db
     volumes:
-      - ./src:/app/src
+      - .:/app
 
   pgadmin:
     image: dpage/pgadmin4
