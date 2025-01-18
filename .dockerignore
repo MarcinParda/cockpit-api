@@ -5,3 +5,6 @@ dist
 Dockerfile
 docker-compose.yml
 README.md
+.dockerignore
+node_modules
+npm-debug.log
