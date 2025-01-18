@@ -26,6 +26,22 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Docker
+
+To run the project with Docker, follow these steps:
+
+1. Build the Docker image:
+
+```bash
+docker compose build
+```
+
+2. Run the Docker container:
+
+```bash
+docker compose up
+```
+
 ## Project setup
 
 ```bash
