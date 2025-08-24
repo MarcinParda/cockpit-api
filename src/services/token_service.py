@@ -1,12 +1,12 @@
 from datetime import datetime, timedelta, timezone
-from typing import List, Optional, Sequence
+from typing import List, Optional
 from uuid import UUID
-from sqlalchemy import and_, or_, select, delete, func
+from sqlalchemy import and_, select, delete, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.models.access_token import AccessToken
-from src.models.refresh_token import RefreshToken
-from src.models.user import User
+from src.app.auth.models import AccessToken
+from src.app.auth.models import RefreshToken
+from src.app.auth.models import User
 from src.core.config import settings
 
 
@@ -25,12 +25,13 @@ class TokenService:
         if expires_at.tzinfo is not None:
             expires_at = expires_at.replace(tzinfo=None)
 
-        token = AccessToken(
-            jti=jti,
-            user_id=user_id,
-            expires_at=expires_at,
-            is_revoked=False
-        )
+        # Create token with attributes instead of constructor params
+        token = AccessToken()
+        token.jti = jti
+        token.user_id = user_id
+        token.expires_at = expires_at
+        token.is_revoked = False
+
         db.add(token)
         await db.commit()
         await db.refresh(token)
@@ -48,12 +49,13 @@ class TokenService:
         if expires_at.tzinfo is not None:
             expires_at = expires_at.replace(tzinfo=None)
 
-        token = RefreshToken(
-            jti=jti,
-            user_id=user_id,
-            expires_at=expires_at,
-            is_revoked=False
-        )
+        # Create token with attributes instead of constructor params
+        token = RefreshToken()
+        token.jti = jti
+        token.user_id = user_id
+        token.expires_at = expires_at
+        token.is_revoked = False
+
         db.add(token)
         await db.commit()
         await db.refresh(token)
@@ -189,12 +191,12 @@ class TokenService:
         refresh_tokens = refresh_result.scalars().all()
 
         revoked_count = 0
-        for token in access_tokens:
-            token.is_revoked = True  # type: ignore
+        for access_token in access_tokens:
+            access_token.is_revoked = True  # type: ignore
             revoked_count += 1
 
-        for token in refresh_tokens:
-            token.is_revoked = True  # type: ignore
+        for refresh_token in refresh_tokens:
+            refresh_token.is_revoked = True  # type: ignore
             revoked_count += 1
 
         await db.commit()
